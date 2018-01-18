@@ -1,0 +1,131 @@
+import React, { Component } from 'react';
+import marked from 'marked';
+
+class Project extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toBeUpdated: false,
+      name: '',
+      descriptions: '',
+      image: '',
+    };
+
+    this.updateProject = this.updateProject.bind(this);
+    this.handleProjectUpdate = this.handleProjectUpdate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    
+  }
+  updateProject(e) {
+    e.preventDefault();
+    //brings up the update field when we click on the update link.
+    this.setState({ toBeUpdated: !this.state.toBeUpdated });
+  }
+
+  handleProjectUpdate(e) {
+    e.preventDefault();
+    let id = this.props.uniqueID;
+    //if job fields changed, set it. if not, leave null and our PUT request
+    //will ignore it.
+    let name = (this.state.name) ? this.state.name : null;
+    let descriptions = (this.state.descriptions) ? this.state.descriptions : null;
+    let image = (this.state.image) ? this.state.image : null;
+  
+    let project = { name: name, descriptions: descriptions, image: image};
+    this.props.onProjectUpdate(id, project);
+    
+    this.setState({
+      toBeUpdated: !this.state.toBeUpdated,
+      name: '',
+      descriptions: '',
+      image: ''
+    })
+  }
+
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+ this.setState({
+   [name]: value
+ });
+
+ }
+
+  rawMarkup() {
+    let rawMarkup = marked(this.props.children.toString());
+    return { __html: rawMarkup };
+  }
+  
+  render() {
+    return (
+      <div className="project">
+      <div class="col s6" >
+      <div class="card horizontal">
+        <div class="card-image" style={{ height: 300 }}>
+          <img src={this.props.image}/>
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h3>{this.props.name}</h3>
+            <p>{this.props.descriptions}</p>
+          </div>
+          <div class="card-action">
+            <a href="#!" class="secondary-content" onClick={ this.updateProject }><i class="material-icons">mode_edit</i></a>
+          </div>
+      </div>
+      </div>
+      </div>
+
+      { (this.state.toBeUpdated)
+          ? (<form class="col s12" onSubmit={this.handleProjectUpdate}>
+            <div class="row">
+                <div class="input-field col s6">
+                <input 
+                  placeholder="Project Name" 
+                  id="name" name="name" 
+                  type="text" 
+                  class="validate" 
+                  onChange={this.handleChange}
+                  defaultValue={this.props.name}
+                  />
+                <label class="active" for="name">Project Name</label>
+                </div>
+                <div class="input-field col s6">
+                <input 
+                  placeholder="Image" 
+                  id="image" 
+                  name="image" 
+                  type="text" class="validate" 
+                  onChange={this.handleChange}
+                  defaultValue={this.props.image}
+                  />
+                <label class="active" for="image">Image</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                <textarea 
+                  id="descriptions" 
+                  name="descriptions" 
+                  class="materialize-textarea" 
+                  onChange={this.handleChange}
+                  defaultValue={this.props.descriptions}>
+                  </textarea>
+                <label class="active" for="descriptions">Job Descriptions</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+            </form>)
+          : null}
+      </div>
+    )
+  }
+}
+
+export default Project;

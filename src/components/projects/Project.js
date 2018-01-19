@@ -6,14 +6,14 @@ class Project extends Component {
     super(props);
     this.state = {
       toBeUpdated: false,
-      name: '',
-      descriptions: '',
-      image: '',
+      ...props.e
     };
 
     this.updateProject = this.updateProject.bind(this);
     this.handleProjectUpdate = this.handleProjectUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.deleteProject = this.deleteProject.bind(this);
+    
     
   }
   updateProject(e) {
@@ -54,6 +54,13 @@ class Project extends Component {
 
  }
 
+ deleteProject(e) {
+  e.preventDefault();
+  let id = this.props.uniqueID;
+  this.props.onProjectDelete(id);
+  console.log('oops deleted');
+}
+
   rawMarkup() {
     let rawMarkup = marked(this.props.children.toString());
     return { __html: rawMarkup };
@@ -74,6 +81,7 @@ class Project extends Component {
           </div>
           <div class="card-action">
             <a href="#!" class="secondary-content" onClick={ this.updateProject }><i class="material-icons">mode_edit</i></a>
+            <a href="#!" class="right" onClick={ this.deleteProject }><i class="material-icons">mode_delete</i></a>
           </div>
       </div>
       </div>

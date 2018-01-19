@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 class ProjectForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-                name: '',
-                descriptions: '',
-                image: '',
-                };
+    this.state = {...props.e};
 
     this.handleChange = this.handleChange.bind(this);
     //this.handleAuthorChange = this.handleAuthorChange.bind(this);

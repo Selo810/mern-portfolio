@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 class SkillForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      name: '',
-      image: '',
-      };
+    this.state = {...props.e};
 
     this.handleChange = this.handleChange.bind(this);
     //this.handleAuthorChange = this.handleAuthorChange.bind(this);
@@ -37,10 +34,7 @@ class SkillForm extends Component {
         name: name, 
         image: image,
     });
-    this.setState({ 
-        name: '',
-        image: '',
-        });
+    this.setState({ });
   }
   
   render() {

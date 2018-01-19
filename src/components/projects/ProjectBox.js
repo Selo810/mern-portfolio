@@ -10,6 +10,7 @@ class ProjectBox extends Component {
     this.loadProjectsFromServer = this.loadProjectsFromServer.bind(this);
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this);
     this.handleProjectUpdate = this.handleProjectUpdate.bind(this);
+    this.handleProjectDelete = this.handleProjectDelete.bind(this);
     this.pollInterval = null;
   }
 
@@ -42,6 +43,16 @@ class ProjectBox extends Component {
       })
   }
 
+  handleProjectDelete(id) {
+    axios.delete(`${this.props.url}/${id}`)
+      .then(res => {
+        console.log('Project deleted');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   componentDidMount() {
     this.loadProjectsFromServer();
     if (!this.pollInterval) {
@@ -68,7 +79,10 @@ class ProjectBox extends Component {
         </span>
         </h3>
         <div class="row">
-       <ProjectList data={ this.state.data } onProjectUpdate={ this.handleProjectUpdate }/>
+       <ProjectList 
+            data={ this.state.data } 
+            onProjectUpdate={ this.handleProjectUpdate } 
+            onProjectDelete={ this.handleProjectDelete }/>
        </div>
        <ProjectForm onProjectSubmit={ this.handleProjectSubmit }/>
        </div>

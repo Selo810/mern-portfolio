@@ -52,7 +52,7 @@ class ContactForm extends Component {
             <form class="col s12" onSubmit={this.handleSubmit}>
             <div class="row">
                 <div class="input-field col s6">
-                <input placeholder="Project Name" id="name" name="name" type="text" class="validate" onChange={this.handleChange}/>
+                <input placeholder="Full Name" id="name" name="name" type="text" class="validate" onChange={this.handleChange}/>
                 <label for="name">Full Name</label>
                 </div>
                 <div class="input-field col s6">

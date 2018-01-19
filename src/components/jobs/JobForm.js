@@ -3,20 +3,9 @@ import React, { Component } from 'react';
 class JobForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-                job_title: '',
-                company_name: '',
-                city: '',
-                state: '',
-                descriptions: '',
-                image: '',
-                start_date: '',
-                end_date: ''
-                };
+    this.state = {...props.e};
 
-                this.handleChange = this.handleChange.bind(this);
-    //this.handleAuthorChange = this.handleAuthorChange.bind(this);
-    //this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -30,14 +19,6 @@ class JobForm extends Component {
  });
 
  }
-
-  /*handleAuthorChange(e) {
-    this.setState({ author: e.target.value });
-  }
-
-  handleTextChange(e) {
-    this.setState({ text: e.target.value });
-  }*/
 
   handleSubmit(e) {
     e.preventDefault();

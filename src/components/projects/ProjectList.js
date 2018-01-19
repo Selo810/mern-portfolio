@@ -12,7 +12,9 @@ class ProjectList extends Component {
           key={ project.id } 
           image = { project.image } 
           descriptions = { project.descriptions }
-          onProjectUpdate={ this.props.onProjectUpdate }>
+          onProjectUpdate={ this.props.onProjectUpdate }
+          onProjectDelete={ this.props.onProjectDelete }>
+          
         </Project>
       )
     })

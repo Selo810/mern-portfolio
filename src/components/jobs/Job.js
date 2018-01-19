@@ -7,18 +7,12 @@ class Job extends Component {
 
     this.state = {
       toBeUpdated: false,
-      job_title: '',
-      company_name: '',
-      city: '',
-      state: '',
-      descriptions: '',
-      image: '',
-      start_date: '',
-      end_date: ''
+      ...props.e
     };
     this.updateJob = this.updateJob.bind(this);
     this.handleJobUpdate = this.handleJobUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.deleteJob = this.deleteJob.bind(this);
     
   }
 
@@ -69,6 +63,12 @@ class Job extends Component {
 
  }
 
+ deleteJob(e) {
+  e.preventDefault();
+  let id = this.props.uniqueID;
+  this.props.onJobDelete(id);
+  console.log('oops deleted');
+}
 
   rawMarkup() {
     let rawMarkup = marked(this.props.children.toString());
@@ -87,6 +87,7 @@ class Job extends Component {
           <p>{this.props.descriptions}</p>
           <p>{this.props.start_date} - {this.props.end_date}</p>
           <a href="#!" class="secondary-content" onClick={ this.updateJob }><i class="material-icons">mode_edit</i></a>
+          <a href="#!" class="right" onClick={ this.deleteJob }><i class="material-icons">mode_delete</i></a>
         </li>
       </ul>
 

@@ -10,6 +10,7 @@ class JobBox extends Component {
     this.loadJobsFromServer = this.loadJobsFromServer.bind(this);
     this.handleJobSubmit = this.handleJobSubmit.bind(this);
     this.handleJobUpdate = this.handleJobUpdate.bind(this);
+    this.handleJobDelete = this.handleJobDelete.bind(this);
     this.pollInterval = null;
   }
 
@@ -40,6 +41,16 @@ class JobBox extends Component {
       })
   }
 
+  handleJobDelete(id) {
+    axios.delete(`${this.props.url}/${id}`)
+      .then(res => {
+        console.log('Job deleted');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
 
   componentDidMount() {
     this.loadJobsFromServer();
@@ -66,7 +77,7 @@ class JobBox extends Component {
             <a class="waves-effect waves-light modal-trigger" href="#modal1"><i class="medium material-icons">add</i></a>
         </span>
         </h3>
-       <JobList data={ this.state.data } onJobUpdate={ this.handleJobUpdate }/>
+       <JobList data={ this.state.data } onJobUpdate={ this.handleJobUpdate } onJobDelete={ this.handleJobDelete }/>
        <JobForm onJobSubmit={ this.handleJobSubmit }/>
       </div>
     )

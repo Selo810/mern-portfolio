@@ -16,7 +16,8 @@ class JobList extends Component {
           descriptions = { job.descriptions } 
           start_date = { job.start_date }
           end_date = { job.end_date } 
-          onJobUpdate={ this.props.onJobUpdate }
+          onJobUpdate ={ this.props.onJobUpdate }
+          onJobDelete ={ this.props.onJobDelete }
            >
         </Job>
       )

@@ -10,7 +10,8 @@ class SkillList extends Component {
           uniqueID={ skill['_id'] }
           key={ skill.id } 
           image = { skill.image }
-          onSkillUpdate={ this.props.onSkillUpdate }>
+          onSkillUpdate={ this.props.onSkillUpdate }
+          onSkillDelete={ this.props.onSkillDelete }>
         </Skill>
       )
     })

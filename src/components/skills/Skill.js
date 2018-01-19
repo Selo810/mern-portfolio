@@ -6,13 +6,13 @@ class Skill extends Component {
     super(props);
     this.state = {
       toBeUpdated: false,
-      name: '',
-      image: '',
+      ...props.e
     };
 
     this.updateSkill = this.updateSkill.bind(this);
     this.handleSkillUpdate = this.handleSkillUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.deleteSkill = this.deleteSkill.bind(this);
     
   }
 
@@ -45,10 +45,15 @@ class Skill extends Component {
   this.props.onSkillUpdate(id, skill);
   
   this.setState({
-    toBeUpdated: !this.state.toBeUpdated,
-    name: '',
-    image: ''
+    toBeUpdated: !this.state.toBeUpdated
   })
+}
+
+deleteSkill(e) {
+  e.preventDefault();
+  let id = this.props.uniqueID;
+  this.props.onSkillDelete(id);
+  console.log('oops deleted');
 }
 
   rawMarkup() {
@@ -69,8 +74,8 @@ class Skill extends Component {
             <i class="material-icons">mode_edit</i>
             </a>
           </span>
-          
         </div>
+        <a href="#!" class="right" onClick={ this.deleteSkill }><i class="material-icons">mode_delete</i></a>
         </div>
         { (this.state.toBeUpdated)
           ? (<form class="col s12" onSubmit={this.handleSkillUpdate}>

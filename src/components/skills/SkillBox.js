@@ -10,6 +10,7 @@ class SkillBox extends Component {
     this.loadSkillsFromServer = this.loadSkillsFromServer.bind(this);
     this.handleSkillSubmit = this.handleSkillSubmit.bind(this);
     this.handleSkillUpdate = this.handleSkillUpdate.bind(this);
+    this.handleSkillDelete = this.handleSkillDelete.bind(this);
     this.pollInterval = null;
   }
 
@@ -41,6 +42,16 @@ class SkillBox extends Component {
       })
   }
 
+  handleSkillDelete(id) {
+    axios.delete(`${this.props.url}/${id}`)
+      .then(res => {
+        console.log('Skill deleted');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   componentDidMount() {
     this.loadSkillsFromServer();
     if (!this.pollInterval) {
@@ -67,7 +78,10 @@ class SkillBox extends Component {
         </span>
         </h3>
         <div class="row">
-       <SkillList data={ this.state.data } onSkillUpdate={ this.handleSkillUpdate }/>
+       <SkillList 
+          data={ this.state.data } 
+          onSkillUpdate={ this.handleSkillUpdate }
+          onSkillDelete={ this.handleSkillDelete }/>
        </div>
        <SkillForm onSkillSubmit={ this.handleSkillSubmit }/>
       </div>

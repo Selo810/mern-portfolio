@@ -3,7 +3,16 @@ import React, { Component } from 'react';
 class JobForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {...props.e};
+    this.state = {
+        job_title: '',
+        company_name: '',
+        city: '',
+        state: '',
+        descriptions: '',
+        image: '',
+        start_date: '',
+        end_date: ''
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

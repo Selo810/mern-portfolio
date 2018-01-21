@@ -7,7 +7,14 @@ class Job extends Component {
 
     this.state = {
       toBeUpdated: false,
-      ...props.e
+      job_title: '',
+      company_name: '',
+      city: '',
+      state: '',
+      descriptions: '',
+      image: '',
+      start_date: '',
+      end_date: ''
     };
     this.updateJob = this.updateJob.bind(this);
     this.handleJobUpdate = this.handleJobUpdate.bind(this);

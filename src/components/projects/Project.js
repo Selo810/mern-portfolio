@@ -6,7 +6,9 @@ class Project extends Component {
     super(props);
     this.state = {
       toBeUpdated: false,
-      ...props.e
+      name: '',
+      descriptions: '',
+      image: ''
     };
 
     this.updateProject = this.updateProject.bind(this);

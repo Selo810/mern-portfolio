@@ -6,7 +6,7 @@ class Skill extends Component {
     super(props);
     this.state = {
       toBeUpdated: false,
-      ...props.e
+      //...props.e
     };
 
     this.updateSkill = this.updateSkill.bind(this);

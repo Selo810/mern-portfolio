@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class SkillForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {...props.e};
+    this.state = {
+      //...props.e
+    };
 
     this.handleChange = this.handleChange.bind(this);
     //this.handleAuthorChange = this.handleAuthorChange.bind(this);

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import marked from 'marked';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { firebase } from '../../firebase';
+import withAuthentication from '../withAuthentication';
+
 
 class Job extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      authUser: null,
       toBeUpdated: false,
       ...props.e
     };
@@ -14,6 +20,14 @@ class Job extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.deleteJob = this.deleteJob.bind(this);
     
+  }
+
+  componentDidMount() {
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }));
+    });
   }
 
 
@@ -51,6 +65,7 @@ class Job extends Component {
       end_date: ''
     })
   }
+  
 
   handleChange(event) {
     const target = event.target;
@@ -76,6 +91,8 @@ class Job extends Component {
   }
   
   render() {
+    
+    
     return (
       
       <div className="jobs">
@@ -86,8 +103,11 @@ class Job extends Component {
           <p>{this.props.city}, {this.props.state}</p>
           <p>{this.props.descriptions}</p>
           <p>{this.props.start_date} - {this.props.end_date}</p>
-          <a href="#!" class="secondary-content" onClick={ this.updateJob }><i class="material-icons">mode_edit</i></a>
-          <a href="#!" class="right" onClick={ this.deleteJob }><i class="material-icons">mode_delete</i></a>
+          { this.state.authUser
+        ? <a href="#!" class="secondary-content" onClick={ this.updateJob }><i class="material-icons">mode_edit</i></a>
+        : <a href="#!" class="right" onClick={ this.deleteJob }><i class="material-icons">mode_delete</i></a>
+    }           
+          
         </li>
       </ul>
 
@@ -206,6 +226,8 @@ class Job extends Component {
 
       </div>
     )
+    
+    
   }
 }
 

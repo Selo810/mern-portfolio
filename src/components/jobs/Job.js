@@ -66,7 +66,6 @@ class Job extends Component {
     })
   }
   
-
   handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -104,9 +103,10 @@ class Job extends Component {
           <p>{this.props.descriptions}</p>
           <p>{this.props.start_date} - {this.props.end_date}</p>
           { this.state.authUser
-        ? <a href="#!" class="secondary-content" onClick={ this.updateJob }><i class="material-icons">mode_edit</i></a>
-        : <a href="#!" class="right" onClick={ this.deleteJob }><i class="material-icons">mode_delete</i></a>
-    }           
+          ? <span><a href="#!" class="secondary-content" onClick={ this.updateJob }><i class="material-icons">mode_edit</i></a>
+          <a href="#!" class="right" onClick={ this.deleteJob }><i class="material-icons">mode_delete</i></a></span>
+          : null
+          }           
           
         </li>
       </ul>
@@ -225,8 +225,7 @@ class Job extends Component {
           : null}
 
       </div>
-    )
-    
+    ) 
     
   }
 }

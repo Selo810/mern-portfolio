@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "express": "^4.16.2",
     "firebase": "^4.9.0",
     "foreman": "^2.0.0",
@@ -12,21 +13,27 @@
     "material-ui": "^1.0.0-beta.27",
     "material-ui-icons": "^1.0.0-beta.17",
     "mongoose": "^5.0.0-rc2",
-    "nodemon": "^1.14.8",
+    "nodemailer": "^4.4.2",
+    "nodemon": "^1.14.12",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "react-validate-form": "^1.0.6",
+    "react-validation": "^3.0.7",
     "recompose": "^0.26.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "nodemon server.js",
     "start-dev": "nf start -p 3000",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm run server\" \"npm run start\""
   }
 }

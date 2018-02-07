@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ProjectList from './ProjectList';
 import ProjectForm from './ProjectForm';
+import { firebase } from '../../firebase';
 
 class ProjectBox extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { 
+        data: [],
+        authUser: null
+       };
     this.loadProjectsFromServer = this.loadProjectsFromServer.bind(this);
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this);
     this.handleProjectUpdate = this.handleProjectUpdate.bind(this);
@@ -58,6 +62,13 @@ class ProjectBox extends Component {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadProjectsFromServer, this.props.pollInterval)
     } 
+
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }));
+    });
+
   }
 
   //when incorporating into another project
@@ -74,9 +85,10 @@ class ProjectBox extends Component {
       <div className="container">
          <h3 class="center" id="projects">
         PROJECTS / ACHIEVEMENTS
-        <span>
-            <a class="waves-effect waves-light modal-trigger" href="#modal2"><i class="medium material-icons">add</i></a>
-        </span>
+        { this.state.authUser
+          ? <span><a class="waves-effect waves-light modal-trigger" href="#modal2"><i class="medium material-icons">add</i></a></span>
+          : null
+        }
         </h3>
         <div class="row">
        <ProjectList 

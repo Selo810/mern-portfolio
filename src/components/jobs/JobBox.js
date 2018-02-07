@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import JobList from './JobList';
 import JobForm from './JobForm';
+import { firebase } from '../../firebase';
 
 class JobBox extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { 
+      data: [],
+      authUser: null
+     };
     this.loadJobsFromServer = this.loadJobsFromServer.bind(this);
     this.handleJobSubmit = this.handleJobSubmit.bind(this);
     this.handleJobUpdate = this.handleJobUpdate.bind(this);
@@ -57,6 +61,12 @@ class JobBox extends Component {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadJobsFromServer, this.props.pollInterval)
     } 
+
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }));
+    });
   }
 
   //when incorporating into another project
@@ -73,9 +83,11 @@ class JobBox extends Component {
       <div className="container">
         <h3 class="center" id="jobs">
         WORK EXPERIENCE 
-        <span>
-            <a class="waves-effect waves-light modal-trigger" href="#modal1"><i class="medium material-icons">add</i></a>
-        </span>
+        { this.state.authUser
+          ? <span><a class="waves-effect waves-light modal-trigger" href="#modal1"><i class="medium material-icons">add</i></a></span>
+          : null
+        }   
+        
         </h3>
        <JobList data={ this.state.data } onJobUpdate={ this.handleJobUpdate } onJobDelete={ this.handleJobDelete }/>
        <JobForm onJobSubmit={ this.handleJobSubmit }/>

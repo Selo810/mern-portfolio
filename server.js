@@ -11,6 +11,7 @@ var app = express();
 var projects = require('./routes/project');
 var skills = require('./routes/skill');
 var jobs = require('./routes/job');
+var mails = require('./routes/mail');
 
 //set our port to either a predetermined port number if you have set it up, or 3001
 var port = process.env.API_PORT || 3001;
@@ -43,6 +44,8 @@ app.use(function(req, res, next) {
 app.use('/api', projects);
 app.use('/api', skills);
 app.use('/api', jobs);
+app.use('/api', mails);
+
 
 //starts the server and listens for requests
 app.listen(port, function() {

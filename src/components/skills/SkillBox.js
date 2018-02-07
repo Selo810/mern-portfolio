@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SkillList from './SkillList';
 import SkillForm from './SkillForm';
+import { firebase } from '../../firebase';
 
 class SkillBox extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { 
+        data: [],
+        authUser: null
+       };
     this.loadSkillsFromServer = this.loadSkillsFromServer.bind(this);
     this.handleSkillSubmit = this.handleSkillSubmit.bind(this);
     this.handleSkillUpdate = this.handleSkillUpdate.bind(this);
@@ -57,6 +61,12 @@ class SkillBox extends Component {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadSkillsFromServer, this.props.pollInterval)
     } 
+
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }));
+    });
   }
 
   //when incorporating into another project
@@ -73,9 +83,11 @@ class SkillBox extends Component {
       <div className="container">
         <h3 class="center" id="skills">
         SKILLS
-        <span>
-            <a class="waves-effect waves-light modal-trigger" href="#modal3"><i class="medium material-icons">add</i></a>
-        </span>
+
+        { this.state.authUser
+          ? <span><a class="waves-effect waves-light modal-trigger" href="#modal3"><i class="medium material-icons">add</i></a></span>
+          : null
+        }
         </h3>
         <div class="row">
        <SkillList 

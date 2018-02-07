@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import marked from 'marked';
+import { firebase } from '../../firebase';
 
 class Skill extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authUser: null,
       toBeUpdated: false,
       ...props.e
     };
@@ -14,6 +16,14 @@ class Skill extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.deleteSkill = this.deleteSkill.bind(this);
     
+  }
+
+  componentDidMount() {
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }));
+    });
   }
 
   updateSkill(e) {
@@ -69,13 +79,22 @@ deleteSkill(e) {
         <div class="chip">
           <img src={this.props.image}/>
           {this.props.name}
-          <span>
+
+          { this.state.authUser
+          ? <span>
             <a href="#!" class="secondary-content" onClick={ this.updateSkill }>
             <i class="material-icons">mode_edit</i>
             </a>
           </span>
+          : null
+          }  
+          
         </div>
-        <a href="#!" class="right" onClick={ this.deleteSkill }><i class="material-icons">mode_delete</i></a>
+        { this.state.authUser
+          ? <a href="#!" class="right" onClick={ this.deleteSkill }><i class="material-icons">mode_delete</i></a>
+          : null
+          } 
+        
         </div>
         { (this.state.toBeUpdated)
           ? (<form class="col s12" onSubmit={this.handleSkillUpdate}>

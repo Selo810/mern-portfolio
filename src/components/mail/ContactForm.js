@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class ContactForm extends Component {
   constructor(props) {
@@ -7,63 +8,126 @@ class ContactForm extends Component {
                 name: '',
                 email: '',
                 message: '',
+                errors: {}
                 };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleValidation(){
+    let errors = {};
+    let formIsValid = true;
+
+            //Name
+    if(!this.state.name){
+        formIsValid = false;
+        errors["name"] = "Name is required";
+    }
+    
+    /*if(typeof this.state.name !== "undefined"){
+        if(!this.state.name.match(/^[a-zA-Z]+$/)){
+        formIsValid = false;
+        errors["name"] = "Only letters";
+        }      	
+    }*/
+    
+    //Email
+    if(!this.state.email){
+        formIsValid = false;
+        errors["email"] = "Email is required";
+    }
+    
+    if(typeof this.state.email !== "undefined"){
+        let lastAtPos = this.state.email.lastIndexOf('@');
+        let lastDotPos = this.state.email.lastIndexOf('.');
+
+        if (!(lastAtPos < lastDotPos && lastAtPos > 0 && this.state.email.indexOf('@@') == -1 && lastDotPos > 2 && (this.state.email.length - lastDotPos) > 2)) {
+            formIsValid = false;
+            errors["email"] = "Email is not valid";
+        }
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+}
+
   handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
- this.setState({
-   [name]: value
- });
+    this.setState({
+    [name]: value
+    });
 
  }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    let name = this.state.name.trim();
-    let email = this.state.email.trim();
-    let message = this.state.message.trim();
 
-    if (!name || !email || !message) {
-      return;
-    }
-    this.props.onEmailSubmit({ 
-        name: name, 
-        email: email,
-        message: message,
-    });
-    this.setState({ 
-        name: '',
-        email: '',
-        message: '',
-        });
+  async handleSubmit(e) {
+    e.preventDefault();
+        
+            if(this.handleValidation()){
+                const {name, email, message} = this.state
+
+                const form = await axios.post('http://localhost:3001/api/contact-form', {
+                    name,
+                    email,
+                    message
+                });
+
+                this.setState({ 
+                    name: '',
+                    email: '',
+                    message: '',
+                    });
+                alert("Form submitted");
+            }else{
+                //alert("Form has errors.")
+            }
+        
   }
   
   render() {
+   
     return (
         
         <div class="row">
             <form class="col s12" onSubmit={this.handleSubmit}>
             <div class="row">
                 <div class="input-field col s6">
-                <input placeholder="Full Name" id="name" name="name" type="text" class="validate" onChange={this.handleChange}/>
+                
+                <input 
+                    id="name" 
+                    name="name" 
+                    type="text" 
+                    class="validate" 
+                    value={this.state.name}
+                    onChange={this.handleChange}/>
+                    <span style={{color: "red"}}>{this.state.errors["name"]}</span>
                 <label for="name">Full Name</label>
                 </div>
                 <div class="input-field col s6">
-                <input placeholder="Email" id="email" name="image" type="email" class="validate" onChange={this.handleChange}/>
+                <input 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    class="validate" 
+                    value={this.state.email}
+                    onChange={this.handleChange}/>
+                    <span style={{color: "red"}}>{this.state.errors["email"]}</span>
                 <label for="image">Email</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
-                <textarea id="message" name="message" class="materialize-textarea" onChange={this.handleChange}></textarea>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    class="materialize-textarea" 
+                    onChange={this.handleChange}>
+                    </textarea>
                 <label for="message">Your Message</label>
                 </div>
             </div>

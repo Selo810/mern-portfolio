@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import marked from 'marked';
+import { firebase } from '../../firebase';
 
 class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authUser: null,
       toBeUpdated: false,
       ...props.e
     };
@@ -16,6 +18,15 @@ class Project extends Component {
     
     
   }
+
+  componentDidMount() {
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState(() => ({ authUser }))
+        : this.setState(() => ({ authUser: null }));
+    });
+  }
+
   updateProject(e) {
     e.preventDefault();
     //brings up the update field when we click on the update link.
@@ -80,8 +91,11 @@ class Project extends Component {
             <p>{this.props.descriptions}</p>
           </div>
           <div class="card-action">
-            <a href="#!" class="secondary-content" onClick={ this.updateProject }><i class="material-icons">mode_edit</i></a>
-            <a href="#!" class="right" onClick={ this.deleteProject }><i class="material-icons">mode_delete</i></a>
+              { this.state.authUser
+              ? <span><a href="#!" class="secondary-content" onClick={ this.updateProject }><i class="material-icons">mode_edit</i></a>
+              <a href="#!" class="right" onClick={ this.deleteProject }><i class="material-icons">mode_delete</i></a></span>
+              : null
+              }    
           </div>
       </div>
       </div>

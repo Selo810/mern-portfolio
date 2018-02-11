@@ -1,11 +1,21 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 const router = express.Router();
 
 
 router.post('/contact-form', (req, res) => {
-    nodemailer.createTestAccount((err, account) =>{
-      const htmlEmail =  `
+
+// api key https://sendgrid.com/docs/Classroom/Send/api_keys.html 
+var options = {
+  auth: {
+      api_key: 'YOUR_API_KEY'
+  }
+}
+  
+var mailer = nodemailer.createTransport(sgTransport(options));
+
+const htmlEmail =  `
       <h3>Contact Details</h3>
       <ul>
           <li>Name: ${req.body.name}</li>
@@ -14,36 +24,23 @@ router.post('/contact-form', (req, res) => {
       <h3>Message</h3>
       <p>${req.body.message}</p>
       `
-  
-      let transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-            user: 'ptgjsoqjop4dvgkj@ethereal.email',
-            pass: 's7J1YK6WTvzY2SgCPY'
-        }
-      });
-  
-      let mailOptions = {
-        from: 'test@gmail.com',
-        to: 'ptgjsoqjop4dvgkj@ethereal.email',
-        replyTo: 'test@gmail.com',
-        subject: 'Portfolio Contact',
-        text: req.body.mongoose,
-        html: htmlEmail
-      }
-  
-      transporter.sendMail(mailOptions, (err, info) => {
-        if (err){
-          return console.log(err);
-        }
-  
-        console.log('Message sent: %s', info.message);
-        console.log('Message URL: %s', nodemailer.getTestMessageUrl(info));
-  
-      })
-  
-    });
+
+var email = {
+  to: 'email@example.com',
+  replyTo: req.body.email,
+  from: 'portfolio@example.com',
+  subject: 'Portfolio Contact',
+  text: req.body.mongoose,
+  html: htmlEmail
+};
+
+mailer.sendMail(email, function(err, res) {
+  if (err) { 
+      console.log(err) 
+  }
+  console.log(res);
+});
+
   });
 
   module.exports = router;

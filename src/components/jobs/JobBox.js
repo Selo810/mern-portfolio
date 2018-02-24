@@ -18,6 +18,7 @@ class JobBox extends Component {
     this.pollInterval = null;
   }
 
+  //query to load jobs
   loadJobsFromServer() {
     axios.get(this.props.url)
       .then(res => {

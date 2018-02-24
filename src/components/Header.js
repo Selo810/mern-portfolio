@@ -12,8 +12,9 @@ class Nav extends React.Component {
                   <a class="btn waves-effect white grey-text darken-text-2" href="#contactMe">Contact Me</a>
                 </div>
                 <div class="white-text" href="#one!">
-                  <h2>First Panel</h2>
-                  <p class="">This is your first panel</p>
+                <img src="http://loserigne.me/images/profile.png" height={200} alt="" class="circle"/>
+                  <h3>Serigne Lo</h3>
+                  <p class="">Software Developer.</p>
                 </div>
               </div>
             </div>

@@ -84,10 +84,7 @@ class Job extends Component {
   console.log('oops deleted');
 }
 
-  rawMarkup() {
-    let rawMarkup = marked(this.props.children.toString());
-    return { __html: rawMarkup };
-  }
+  
   
   render() {
     

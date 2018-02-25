@@ -9,7 +9,7 @@ router.post('/contact-form', (req, res) => {
 // api key https://sendgrid.com/docs/Classroom/Send/api_keys.html 
 var options = {
   auth: {
-      api_key: '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'
+      api_key: ''
   }
 }
   

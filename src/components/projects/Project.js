@@ -80,14 +80,14 @@ class Project extends Component {
   render() {
     return (
       <div className="project">
-      <div class="col s6" >
+      <div class="col s12" >
       <div class="card horizontal">
-        <div class="card-image" style={{ height: 300 }}>
-          <img src={this.props.image}/>
+        <div class="card-image">
+          <img style={{ height: 250 }} src={this.props.image}/>
         </div>
         <div class="card-stacked">
           <div class="card-content">
-            <h3>{this.props.name}</h3>
+            <h4>{this.props.name}</h4>
             <p>{this.props.descriptions}</p>
           </div>
           <div class="card-action">

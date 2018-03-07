@@ -12,7 +12,7 @@ const Nav = ({ authUser }) =>
 <div className='Nav'>
 <nav>
 <div class="nav-wrapper blue-grey darken-4">
-<a href="#!" class="brand-logo">Logo</a>
+<a href="https://github.com/Selo810" target='new' class="brand-logo">GitHub</a>
 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 <ul class="right hide-on-med-and-down">
     <li><a href="#projects">Projects</a></li>

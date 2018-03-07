@@ -22,8 +22,6 @@ const MainBox = () =>
           <SkillBox url='http://localhost:3001/api/skills' pollInterval={2000} />
           </section>
         </div>
-    
-      
 
   export default MainBox;
 

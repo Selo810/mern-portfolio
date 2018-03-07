@@ -21,7 +21,7 @@ var port = process.env.API_PORT || 3001;
 var mongoDB = 'mongodb://admin:PortFolio!@ds247678.mlab.com:47678/portfolio';
 //var mongoDB = 'mongodb://localhost:27017/portfolio';
 
-mongoose.connect(mongoDB)
+mongoose.connect(mongoDB);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

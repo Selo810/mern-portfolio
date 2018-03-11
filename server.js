@@ -17,7 +17,6 @@ var mails = require('./routes/mail');
 var port = process.env.API_PORT || 3001;
 
 //db config -- REPLACE USERNAME/PASSWORD/DATABASE WITH YOUR OWN FROM MLAB!
-//var mongoDB = 'mongodb://seloweb810:password@ds141514.mlab.com:41514/selo_tasklist_db';
 var mongoDB = 'mongodb://admin:PortFolio!@ds247678.mlab.com:47678/portfolio';
 //var mongoDB = 'mongodb://localhost:27017/portfolio';
 

@@ -73,7 +73,7 @@ class ContactForm extends Component {
                 const {name, email, message} = this.state
 
                 //const form = await axios.post('http://localhost:3001/api/contact-form', {
-                axios.post('http://localhost:3001/api/contact-form', {
+                axios.post('http://ec2-35-171-189-137.compute-1.amazonaws.com:9000/api/contact-form', {
                     name,
                     email,
                     message

@@ -17,9 +17,9 @@ const MainBox = () =>
         <div style={{height: "100%"}}>
           <section id="appContainer" className="">
           <Header/>
-          <JobBox url='http://localhost:3001/api/jobs' pollInterval={2000} />
-          <ProjectBox url='http://localhost:3001/api/projects' pollInterval={2000} />
-          <SkillBox url='http://localhost:3001/api/skills' pollInterval={2000} />
+          <JobBox url='http://ec2-35-171-189-137.compute-1.amazonaws.com:9000/api/jobs' pollInterval={2000} />
+          <ProjectBox url='http://ec2-35-171-189-137.compute-1.amazonaws.com:9000/api/projects' pollInterval={2000} />
+          <SkillBox url='http://ec2-35-171-189-137.compute-1.amazonaws.com:9000/api/skills' pollInterval={2000} />
           </section>
         </div>
 

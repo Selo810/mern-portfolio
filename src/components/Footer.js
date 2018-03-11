@@ -13,11 +13,7 @@ class Footer extends React.Component {
                 <div class="container">
                   <ContactForm/>
                 </div>
-                <div class="footer-copyright blue-grey">
-                  <div class="container center">
-                  © 2014 Copyright Text
-                  </div>
-                </div>
+                <br/>
               </footer>
         </div>
         )

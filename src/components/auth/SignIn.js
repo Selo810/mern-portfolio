@@ -11,7 +11,7 @@ const SignInPage = ({ history }) =>
     <h1>SignIn</h1>
     <SignInForm history={history} />
     <PasswordForgetLink />
-    <SignUpLink />
+    
   </div>
 
 const byPropKey = (propertyName, value) => () => ({

@@ -14,7 +14,7 @@ var jobs = require('./routes/job');
 var mails = require('./routes/mail');
 
 //set our port to either a predetermined port number if you have set it up, or 3001
-var port = process.env.API_PORT || 3001;
+var port = process.env.API_PORT || 9000;
 
 //db config -- REPLACE USERNAME/PASSWORD/DATABASE WITH YOUR OWN FROM MLAB!
 var mongoDB = 'mongodb://admin:PortFolio!@ds247678.mlab.com:47678/portfolio';
